@@ -516,6 +516,133 @@
   .sec1 .color-strip { background: linear-gradient(to right, var(--accent-orange), transparent); }
   .sec2 .color-strip { background: linear-gradient(to right, var(--accent-teal), transparent); }
   .sec3 .color-strip { background: linear-gradient(to right, var(--accent-blue), transparent); }
+
+  /* ===== LIGHTBOX ===== */
+  .card { cursor: pointer; }
+
+  /* Zoom hint icon on hover */
+  .card-zoom-hint {
+    position: absolute;
+    top: 16px; right: 16px;
+    width: 36px; height: 36px;
+    background: rgba(0,0,0,0.55);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 5;
+    backdrop-filter: blur(4px);
+  }
+  .card-zoom-hint svg { width: 16px; height: 16px; fill: none; stroke: #fff; stroke-width: 2; }
+  .card:hover .card-zoom-hint { opacity: 1; }
+
+  /* Lightbox backdrop */
+  #lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s cubic-bezier(0.23,1,0.32,1);
+  }
+  #lightbox.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+  #lightbox-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 8, 7, 0.94);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  #lightbox-inner {
+    position: relative;
+    z-index: 2;
+    max-width: 92vw;
+    max-height: 92vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    transform: scale(0.92);
+    transition: transform 0.35s cubic-bezier(0.23,1,0.32,1);
+  }
+  #lightbox.active #lightbox-inner { transform: scale(1); }
+
+  #lightbox-img {
+    max-width: 88vw;
+    max-height: 82vh;
+    object-fit: contain;
+    display: block;
+    border-radius: 4px;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.7);
+  }
+  #lightbox-caption {
+    text-align: center;
+    color: rgba(245,240,232,0.7);
+    font-size: 13px;
+    letter-spacing: 1px;
+    line-height: 1.6;
+  }
+  #lightbox-caption strong {
+    display: block;
+    color: var(--cream);
+    font-family: 'Noto Serif TC', serif;
+    font-size: 16px;
+    margin-bottom: 4px;
+  }
+
+  /* Close button */
+  #lightbox-close {
+    position: fixed;
+    top: 28px; right: 36px;
+    width: 48px; height: 48px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s, transform 0.2s;
+    z-index: 3;
+  }
+  #lightbox-close:hover { background: rgba(255,255,255,0.14); transform: rotate(90deg); }
+  #lightbox-close svg { width: 18px; height: 18px; stroke: #fff; stroke-width: 2; fill: none; }
+
+  /* Prev / Next arrows */
+  .lightbox-arrow {
+    position: fixed;
+    top: 50%; transform: translateY(-50%);
+    width: 52px; height: 52px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s, transform 0.2s;
+    z-index: 3;
+  }
+  .lightbox-arrow:hover { background: rgba(255,255,255,0.14); }
+  #lightbox-prev { left: 24px; }
+  #lightbox-prev:hover { transform: translateY(-50%) translateX(-3px); }
+  #lightbox-next { right: 24px; }
+  #lightbox-next:hover { transform: translateY(-50%) translateX(3px); }
+  .lightbox-arrow svg { width: 20px; height: 20px; stroke: #fff; stroke-width: 2; fill: none; }
+
+  /* Counter */
+  #lightbox-counter {
+    position: fixed;
+    bottom: 28px; left: 50%;
+    transform: translateX(-50%);
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: rgba(245,240,232,0.35);
+    z-index: 3;
+  }
 </style>
 </head>
 <body>
@@ -589,54 +716,60 @@
   <div class="color-strip"></div>
 
   <div class="projects-grid">
-    <div class="card sec1 card-a reveal">
+    <div class="card sec1 card-a reveal" data-img="images/就算一個人也可以好好吃飯SLOGAN01.jpg" data-title="貼文 Slogan 視覺設計 01" data-tag="Slogan Design">
       <img src="images/就算一個人也可以好好吃飯SLOGAN01.jpg" alt="SLOGAN 01">
       <div class="card-overlay"></div>
+      <div class="card-zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
       <div class="card-info">
         <p class="card-tag">Slogan Design</p>
         <h3 class="card-title">貼文 Slogan<br>視覺設計 01</h3>
         <p class="card-desc">以鍋具造型為主體，結合暖色系配色與手寫字感，傳遞療癒溫暖的飲食情感。</p>
       </div>
     </div>
-    <div class="card sec1 card-b reveal reveal-delay-1">
+    <div class="card sec1 card-b reveal reveal-delay-1" data-img="images/就算一個人也可以好好吃飯SLOGAN02.jpg" data-title="貼文 Slogan 視覺設計 02" data-tag="Slogan Design">
       <img src="images/就算一個人也可以好好吃飯SLOGAN02.jpg" alt="SLOGAN 02">
       <div class="card-overlay"></div>
+      <div class="card-zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
       <div class="card-info">
         <p class="card-tag">Slogan Design</p>
         <h3 class="card-title">貼文 Slogan<br>視覺設計 02</h3>
         <p class="card-desc">以飯碗為主視覺，運用米白與淡藍對比，凸顯孤獨與滿足並存的情緒。</p>
       </div>
     </div>
-    <div class="card sec1 card-c reveal reveal-delay-2">
+    <div class="card sec1 card-c reveal reveal-delay-2" data-img="images/就算一個人也可以好好吃飯SLOGAN03.jpg" data-title="貼文 Slogan 視覺設計 03" data-tag="Slogan Design">
       <img src="images/就算一個人也可以好好吃飯SLOGAN03.jpg" alt="SLOGAN 03">
       <div class="card-overlay"></div>
+      <div class="card-zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
       <div class="card-info">
         <p class="card-tag">Slogan Design</p>
         <h3 class="card-title">貼文 Slogan<br>視覺設計 03</h3>
         <p class="card-desc">便當盒型態的設計框架，搭配叉匙圖示，呈現輕鬆愉快的日常飲食場景。</p>
       </div>
     </div>
-    <div class="card sec1 card-d reveal">
+    <div class="card sec1 card-d reveal" data-img="images/就算一個人也可以好好吃飯SLOGAN04.jpg" data-title="貼文 Slogan 04" data-tag="Slogan Design">
       <img src="images/就算一個人也可以好好吃飯SLOGAN04.jpg" alt="SLOGAN 04">
       <div class="card-overlay"></div>
+      <div class="card-zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
       <div class="card-info">
         <p class="card-tag">Slogan Design</p>
         <h3 class="card-title">貼文 Slogan 04</h3>
         <p class="card-desc">蛋糕切片造型搭配心型點綴，傳遞甜點即愛的溫柔情感。</p>
       </div>
     </div>
-    <div class="card sec1 card-e reveal reveal-delay-1">
+    <div class="card sec1 card-e reveal reveal-delay-1" data-img="images/就算一個人也可以好好吃飯SLOGAN05.jpg" data-title="貼文 Slogan 05" data-tag="Slogan Design">
       <img src="images/就算一個人也可以好好吃飯SLOGAN05.jpg" alt="SLOGAN 05">
       <div class="card-overlay"></div>
+      <div class="card-zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
       <div class="card-info">
         <p class="card-tag">Slogan Design</p>
         <h3 class="card-title">貼文 Slogan 05</h3>
         <p class="card-desc">吐司造型貼紙設計，以溫馨的文字訴說故事情感。</p>
       </div>
     </div>
-    <div class="card card-wide reveal">
+    <div class="card card-wide reveal" data-img="images/就算一個人也可以好好吃飯播出圖文50.jpg" data-title="播出宣傳圖文設計 · 追劇日曆" data-tag="Social Media · Broadcast">
       <img src="images/就算一個人也可以好好吃飯播出圖文50.jpg" alt="播出圖文">
       <div class="card-overlay"></div>
+      <div class="card-zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
       <div class="card-info">
         <p class="card-tag">Social Media · Broadcast</p>
         <h3 class="card-title">播出宣傳圖文設計 · 追劇日曆</h3>
@@ -661,54 +794,60 @@
   <div class="color-strip"></div>
 
   <div class="projects-grid">
-    <div class="card sec2 card-a reveal">
+    <div class="card sec2 card-a reveal" data-img="images/整形過後海報主視覺排版設計.jpg" data-title="主視覺海報設計" data-tag="Key Visual · Poster Design">
       <img src="images/整形過後海報主視覺排版設計.jpg" alt="主視覺海報" style="object-position: center top;">
       <div class="card-overlay"></div>
+      <div class="card-zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
       <div class="card-info">
         <p class="card-tag">Key Visual · Poster Design</p>
         <h3 class="card-title">主視覺海報設計</h3>
         <p class="card-desc">以醫療藍為底，五位主角直視鏡頭，呈現整形外科醫療劇的專業與張力。</p>
       </div>
     </div>
-    <div class="card sec2 card-b reveal reveal-delay-1">
+    <div class="card sec2 card-b reveal reveal-delay-1" data-img="images/整形過後角色介紹楊雅頌_張榕容飾演.jpg" data-title="角色介紹：張榕容 飾 楊雅頌" data-tag="Character · Profile">
       <img src="images/整形過後角色介紹楊雅頌_張榕容飾演.jpg" alt="張榕容">
       <div class="card-overlay"></div>
+      <div class="card-zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
       <div class="card-info">
         <p class="card-tag">Character · Profile</p>
         <h3 class="card-title">角色介紹<br>張榕容 飾 楊雅頌</h3>
         <p class="card-desc">霸總女外科醫師形象，以深色系為基調強調角色性格。</p>
       </div>
     </div>
-    <div class="card sec2 card-c reveal reveal-delay-2">
+    <div class="card sec2 card-c reveal reveal-delay-2" data-img="images/整形過後角色介紹江浩宇_温昇豪飾演.jpg" data-title="角色介紹：温昇豪 飾 江浩宇" data-tag="Character · Profile">
       <img src="images/整形過後角色介紹江浩宇_温昇豪飾演.jpg" alt="温昇豪">
       <div class="card-overlay"></div>
+      <div class="card-zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
       <div class="card-info">
         <p class="card-tag">Character · Profile</p>
         <h3 class="card-title">角色介紹<br>温昇豪 飾 江浩宇</h3>
         <p class="card-desc">整外神之手，溫暖橘色調呼應角色溫文儒雅的外科醫師氣質。</p>
       </div>
     </div>
-    <div class="card sec2 card-d reveal">
+    <div class="card sec2 card-d reveal" data-img="images/整形過後角色介紹蘇菲_安心亞飾演.jpg" data-title="角色介紹：安心亞 飾 蘇菲" data-tag="Character · Profile">
       <img src="images/整形過後角色介紹蘇菲_安心亞飾演.jpg" alt="安心亞">
       <div class="card-overlay"></div>
+      <div class="card-zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
       <div class="card-info">
         <p class="card-tag">Character · Profile</p>
         <h3 class="card-title">角色介紹<br>安心亞 飾 蘇菲</h3>
         <p class="card-desc">最美後援，粉橘色系烘托出角色的活潑與溫柔。</p>
       </div>
     </div>
-    <div class="card sec2 card-e reveal reveal-delay-1">
+    <div class="card sec2 card-e reveal reveal-delay-1" data-img="images/整形過後追劇日曆.jpg" data-title="追劇日曆 · 播出時程" data-tag="Social Media · Calendar">
       <img src="images/整形過後追劇日曆.jpg" alt="追劇日曆">
       <div class="card-overlay"></div>
+      <div class="card-zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
       <div class="card-info">
         <p class="card-tag">Social Media · Calendar</p>
         <h3 class="card-title">追劇日曆<br>播出時程規劃</h3>
         <p class="card-desc">12/13起每週六連播2集，清晰呈現播出資訊與平台授權。</p>
       </div>
     </div>
-    <div class="card card-wide reveal">
+    <div class="card card-wide reveal" data-img="images/整形過後捷運中山站燈箱.jpg" data-title="捷運中山站 R11 燈箱廣告" data-tag="OOH · MRT Station Lightbox">
       <img src="images/整形過後捷運中山站燈箱.jpg" alt="捷運燈箱">
       <div class="card-overlay"></div>
+      <div class="card-zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
       <div class="card-info">
         <p class="card-tag">OOH · MRT Station Lightbox</p>
         <h3 class="card-title">捷運中山站 R11 燈箱廣告設計</h3>
@@ -733,27 +872,30 @@
   <div class="color-strip"></div>
 
   <div class="projects-grid">
-    <div class="card sec3 card-a reveal">
+    <div class="card sec3 card-a reveal" data-img="images/不如海邊吹吹風主視覺Ａ款.jpg" data-title="主視覺海報 A 款" data-tag="Key Visual · Poster Design">
       <img src="images/不如海邊吹吹風主視覺Ａ款.jpg" alt="主視覺">
       <div class="card-overlay"></div>
+      <div class="card-zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
       <div class="card-info">
         <p class="card-tag">Key Visual · Poster Design</p>
         <h3 class="card-title">主視覺海報 A 款</h3>
         <p class="card-desc">以金門海邊的開闊天地為背景，三位主角的情感張力自然流露，海風感十足的攝影構圖完美呼應片名。</p>
       </div>
     </div>
-    <div class="card sec3 card-b reveal reveal-delay-1">
+    <div class="card sec3 card-b reveal reveal-delay-1" data-img="images/不如海邊吹吹風A3摺頁地圖封面封底內頁A.jpg" data-title="A3 摺頁拍攝地圖 封面·封底·內頁" data-tag="Print · Folded Map">
       <img src="images/不如海邊吹吹風A3摺頁地圖封面封底內頁A.jpg" alt="摺頁地圖">
       <div class="card-overlay"></div>
+      <div class="card-zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
       <div class="card-info">
         <p class="card-tag">Print · Folded Map</p>
         <h3 class="card-title">A3 摺頁拍攝地圖<br>封面 · 封底 · 內頁</h3>
         <p class="card-desc">以金門為主題設計的追劇打卡地圖，整合34個拍攝場景，讓觀眾邊看劇邊探索在地文化。</p>
       </div>
     </div>
-    <div class="card card-wide reveal">
+    <div class="card card-wide reveal" data-img="images/不如海邊吹吹風A3摺頁地圖內頁B.jpg" data-title="A3 摺頁地圖 · 內頁詳情" data-tag="Print · Map Interior">
       <img src="images/不如海邊吹吹風A3摺頁地圖內頁B.jpg" alt="地圖內頁B">
       <div class="card-overlay"></div>
+      <div class="card-zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
       <div class="card-info">
         <p class="card-tag">Print · Map Interior</p>
         <h3 class="card-title">A3 摺頁地圖 · 內頁詳情</h3>
@@ -792,6 +934,28 @@
     <span>台灣影視 · 公共電視</span>
   </div>
 </footer>
+
+<!-- LIGHTBOX -->
+<div id="lightbox">
+  <div id="lightbox-backdrop"></div>
+  <div id="lightbox-inner">
+    <img id="lightbox-img" src="" alt="">
+    <div id="lightbox-caption">
+      <strong id="lightbox-title"></strong>
+      <span id="lightbox-tag"></span>
+    </div>
+  </div>
+  <button id="lightbox-close" aria-label="關閉">
+    <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <button class="lightbox-arrow" id="lightbox-prev" aria-label="上一張">
+    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+  </button>
+  <button class="lightbox-arrow" id="lightbox-next" aria-label="下一張">
+    <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+  </button>
+  <div id="lightbox-counter"></div>
+</div>
 
 <script>
   // Custom cursor
@@ -836,6 +1000,78 @@
     });
   }, { threshold: 0.1 });
   reveals.forEach(r => obs.observe(r));
+
+  // ===== LIGHTBOX =====
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lightbox-img');
+  const lbTitle = document.getElementById('lightbox-title');
+  const lbTag = document.getElementById('lightbox-tag');
+  const lbCounter = document.getElementById('lightbox-counter');
+  const lbClose = document.getElementById('lightbox-close');
+  const lbPrev = document.getElementById('lightbox-prev');
+  const lbNext = document.getElementById('lightbox-next');
+  const lbBackdrop = document.getElementById('lightbox-backdrop');
+
+  // Collect all cards with data-img
+  const cards = Array.from(document.querySelectorAll('.card[data-img]'));
+  let currentIndex = 0;
+
+  function openLightbox(index) {
+    currentIndex = index;
+    const card = cards[index];
+    lbImg.src = card.dataset.img;
+    lbImg.alt = card.dataset.title || '';
+    lbTitle.textContent = card.dataset.title || '';
+    lbTag.textContent = card.dataset.tag || '';
+    lbCounter.textContent = `${index + 1} / ${cards.length}`;
+    lb.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    // hide arrows if only 1 image
+    lbPrev.style.display = cards.length > 1 ? '' : 'none';
+    lbNext.style.display = cards.length > 1 ? '' : 'none';
+  }
+
+  function closeLightbox() {
+    lb.classList.remove('active');
+    document.body.style.overflow = '';
+    setTimeout(() => { lbImg.src = ''; }, 350);
+  }
+
+  function showPrev() {
+    currentIndex = (currentIndex - 1 + cards.length) % cards.length;
+    openLightbox(currentIndex);
+  }
+
+  function showNext() {
+    currentIndex = (currentIndex + 1) % cards.length;
+    openLightbox(currentIndex);
+  }
+
+  // Bind card clicks
+  cards.forEach((card, i) => {
+    card.addEventListener('click', () => openLightbox(i));
+  });
+
+  lbClose.addEventListener('click', closeLightbox);
+  lbBackdrop.addEventListener('click', closeLightbox);
+  lbPrev.addEventListener('click', e => { e.stopPropagation(); showPrev(); });
+  lbNext.addEventListener('click', e => { e.stopPropagation(); showNext(); });
+
+  // Keyboard navigation
+  document.addEventListener('keydown', e => {
+    if (!lb.classList.contains('active')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') showPrev();
+    if (e.key === 'ArrowRight') showNext();
+  });
+
+  // Swipe support (touch)
+  let touchStartX = 0;
+  lb.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  lb.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 50) dx < 0 ? showNext() : showPrev();
+  });
 </script>
 </body>
 </html>

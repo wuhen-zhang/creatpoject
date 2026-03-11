@@ -7,160 +7,247 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
 :root {
-  --cream: #F5F0E8; --dark: #1A1614; --gray: #8B8074;
-  --orange: #D4621A; --teal: #3D8B87; --blue: #2B5EA7; --gold: #B8963C;
+  --cream: #F5F0E8;
+  --dark: #1A1614;
+  --gray: #8B8074;
+  --orange: #D4621A;
+  --teal: #3D8B87;
+  --blue: #2B5EA7;
+  --gold: #B8963C;
 }
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{background:var(--dark);color:var(--cream);font-family:'Noto Sans TC',sans-serif;overflow-x:hidden;cursor:none}
-
-/* CURSOR */
-#cur{position:fixed;width:10px;height:10px;background:var(--orange);border-radius:50%;pointer-events:none;z-index:9999;mix-blend-mode:screen;transform:translate(-50%,-50%);transition:transform .15s}
-#cur-ring{position:fixed;width:34px;height:34px;border:1px solid rgba(212,98,26,.45);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--dark);
+  color: var(--cream);
+  font-family: 'Noto Sans TC', sans-serif;
+  overflow-x: hidden;
+}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:26px 56px}
-nav::before{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(26,22,20,.96) 0%,transparent 100%);pointer-events:none}
-.nav-logo{position:relative;font-family:'Playfair Display',serif;font-size:13px;letter-spacing:5px;text-transform:uppercase;color:var(--gold)}
-.nav-links{position:relative;display:flex;gap:36px;list-style:none}
-.nav-links a{font-size:10px;letter-spacing:3px;text-transform:uppercase;text-decoration:none;color:rgba(245,240,232,.55);transition:color .25s}
-.nav-links a:hover{color:var(--cream)}
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 24px 56px;
+}
+nav::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to bottom, rgba(26,22,20,.95) 0%, transparent 100%);
+  pointer-events: none;
+}
+.nav-logo {
+  position: relative;
+  font-family: 'Playfair Display', serif;
+  font-size: 13px; letter-spacing: 5px; text-transform: uppercase; color: var(--gold);
+}
+.nav-links { position: relative; display: flex; gap: 36px; list-style: none; }
+.nav-links a {
+  font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+  text-decoration: none; color: rgba(245,240,232,.55); transition: color .25s;
+}
+.nav-links a:hover { color: var(--cream); }
 
 /* HERO */
-.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
-.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 18% 50%,rgba(212,98,26,.11) 0%,transparent 60%),radial-gradient(ellipse at 80% 28%,rgba(61,139,135,.09) 0%,transparent 60%),radial-gradient(ellipse at 60% 80%,rgba(43,94,167,.08) 0%,transparent 50%)}
-.hero-content{text-align:center;position:relative;z-index:2;padding:0 40px}
-.hero-eye{font-size:10px;letter-spacing:6px;text-transform:uppercase;color:var(--gold);margin-bottom:28px;opacity:0;animation:fadeUp .7s ease .3s forwards}
-.hero-h1{font-family:'Noto Serif TC',serif;font-size:clamp(52px,8vw,96px);font-weight:900;line-height:1.05;letter-spacing:-1px;margin-bottom:10px;opacity:0;animation:fadeUp .7s ease .5s forwards}
-.hero-h1 span{display:block;color:transparent;-webkit-text-stroke:1px rgba(245,240,232,.28)}
-.hero-sub{font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(15px,2.2vw,22px);color:var(--gray);margin-bottom:56px;opacity:0;animation:fadeUp .7s ease .7s forwards}
-.hero-scroll{display:flex;align-items:center;justify-content:center;gap:14px;opacity:0;animation:fadeUp .7s ease .95s forwards}
-.hero-scroll span{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--gray)}
-.scroll-bar{width:56px;height:1px;background:var(--gray);overflow:hidden;position:relative}
-.scroll-bar::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:var(--cream);animation:barSlide 2s ease-in-out infinite}
+.hero {
+  min-height: 100vh; display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 18% 50%, rgba(212,98,26,.12) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 28%, rgba(61,139,135,.10) 0%, transparent 60%),
+    radial-gradient(ellipse at 60% 80%, rgba(43,94,167,.08) 0%, transparent 50%);
+}
+.hero-content { text-align: center; position: relative; z-index: 2; padding: 0 40px; }
+.hero-eye {
+  font-size: 10px; letter-spacing: 6px; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 28px;
+  opacity: 0; animation: fadeUp .7s ease .3s forwards;
+}
+.hero-h1 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: clamp(52px, 8vw, 96px); font-weight: 900;
+  line-height: 1.05; margin-bottom: 10px;
+  opacity: 0; animation: fadeUp .7s ease .5s forwards;
+}
+.hero-h1 span { display: block; color: transparent; -webkit-text-stroke: 1px rgba(245,240,232,.28); }
+.hero-sub {
+  font-family: 'Playfair Display', serif; font-style: italic;
+  font-size: clamp(15px, 2.2vw, 22px); color: var(--gray); margin-bottom: 56px;
+  opacity: 0; animation: fadeUp .7s ease .7s forwards;
+}
+.hero-scroll {
+  display: flex; align-items: center; justify-content: center; gap: 14px;
+  opacity: 0; animation: fadeUp .7s ease .95s forwards;
+}
+.hero-scroll span { font-size: 9px; letter-spacing: 4px; text-transform: uppercase; color: var(--gray); }
+.scroll-bar { width: 56px; height: 1px; background: var(--gray); overflow: hidden; position: relative; }
+.scroll-bar::after {
+  content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+  background: var(--cream); animation: barSlide 2s ease-in-out infinite;
+}
 
 /* STATS */
-.stats{display:flex;gap:56px;padding:56px;border-bottom:1px solid rgba(245,240,232,.06)}
-.stat{display:flex;flex-direction:column;gap:6px}
-.stat-n{font-family:'Playfair Display',serif;font-size:34px;font-weight:700;color:var(--gold)}
-.stat-l{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gray)}
-.vdiv{width:1px;background:rgba(245,240,232,.07);align-self:stretch}
+.stats {
+  display: flex; gap: 56px; padding: 56px;
+  border-bottom: 1px solid rgba(245,240,232,.06);
+}
+.stat { display: flex; flex-direction: column; gap: 6px; }
+.stat-n { font-family: 'Playfair Display', serif; font-size: 34px; font-weight: 700; color: var(--gold); }
+.stat-l { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--gray); }
+.vdiv { width: 1px; background: rgba(245,240,232,.07); align-self: stretch; }
 
 /* SECTION */
-section{padding:110px 0;position:relative}
-.sec2{background:#111210}
-.sec3{background:#0F1213}
-.sec-head{padding:0 56px;margin-bottom:72px;display:flex;align-items:flex-end}
-.sec-num{font-family:'Playfair Display',serif;font-size:110px;font-weight:700;color:transparent;-webkit-text-stroke:1px rgba(245,240,232,.07);line-height:1;user-select:none;flex-shrink:0}
-.sec-info{flex:1;padding-left:52px}
-.sec-cat{font-size:10px;letter-spacing:5px;text-transform:uppercase;margin-bottom:14px}
-.sec-title{font-family:'Noto Serif TC',serif;font-size:clamp(26px,3.5vw,44px);font-weight:600;line-height:1.25}
-.sec-bar{width:44px;height:2px;margin-top:22px}
-.s1 .sec-cat{color:var(--orange)} .s1 .sec-bar{background:var(--orange)}
-.s2 .sec-cat{color:var(--teal)}   .s2 .sec-bar{background:var(--teal)}
-.s3 .sec-cat{color:var(--blue)}   .s3 .sec-bar{background:var(--blue)}
-.strip{height:3px;margin:0 56px 72px;border-radius:2px}
-#s1 .strip{background:linear-gradient(to right,var(--orange),transparent)}
-#s2 .strip{background:linear-gradient(to right,var(--teal),transparent)}
-#s3 .strip{background:linear-gradient(to right,var(--blue),transparent)}
+section { padding: 100px 0; position: relative; }
+.sec2 { background: #111210; }
+.sec3 { background: #0F1213; }
 
-/* GRID */
-.grid{display:grid;gap:3px;padding:0 56px}
-#s1 .grid{grid-template-columns:1fr 1fr 1fr}
-#s2 .grid{grid-template-columns:1.4fr 1fr 1fr}
-#s3 .grid{grid-template-columns:1fr 1fr}
+.sec-head { padding: 0 56px; margin-bottom: 64px; display: flex; align-items: flex-end; }
+.sec-num {
+  font-family: 'Playfair Display', serif; font-size: 110px; font-weight: 700;
+  color: transparent; -webkit-text-stroke: 1px rgba(245,240,232,.07);
+  line-height: 1; user-select: none; flex-shrink: 0;
+}
+.sec-info { flex: 1; padding-left: 52px; }
+.sec-cat { font-size: 10px; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 14px; }
+.sec-title { font-family: 'Noto Serif TC', serif; font-size: clamp(24px, 3vw, 40px); font-weight: 600; line-height: 1.3; }
+.sec-bar { width: 44px; height: 2px; margin-top: 20px; }
 
-/* CARD */
-.card{position:relative;overflow:hidden;background:#111;cursor:pointer;transition:transform .45s cubic-bezier(.23,1,.32,1)}
-.card:hover{transform:scale(.979);z-index:10}
-.card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .55s cubic-bezier(.23,1,.32,1),filter .55s;filter:brightness(.72) saturate(.82)}
-.card:hover img{transform:scale(1.055);filter:brightness(.9) saturate(1.1)}
-.card-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.82) 0%,transparent 55%)}
-.card-info{position:absolute;bottom:0;left:0;right:0;padding:28px;transform:translateY(6px);transition:transform .4s cubic-bezier(.23,1,.32,1)}
-.card:hover .card-info{transform:none}
-.card-tag{font-size:9px;letter-spacing:4px;text-transform:uppercase;opacity:.7;margin-bottom:6px}
-.card-title{font-family:'Noto Serif TC',serif;font-size:17px;font-weight:600;line-height:1.45}
-.card-desc{font-size:11px;color:rgba(245,240,232,.58);margin-top:7px;line-height:1.65;max-height:0;overflow:hidden;transition:max-height .4s ease}
-.card:hover .card-desc{max-height:72px}
-.zoom{position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s;z-index:4;backdrop-filter:blur(4px)}
-.zoom svg{width:14px;height:14px;stroke:#fff;stroke-width:2;fill:none}
-.card:hover .zoom{opacity:1}
-.card::after{content:'';position:absolute;top:0;left:0;width:3px;height:0;transition:height .4s cubic-bezier(.23,1,.32,1)}
-#s1 .card::after{background:var(--orange)} #s1 .card-tag{color:var(--orange)}
-#s2 .card::after{background:var(--teal)}   #s2 .card-tag{color:var(--teal)}
-#s3 .card::after{background:var(--blue)}   #s3 .card-tag{color:var(--blue)}
-.card:hover::after{height:100%}
+.s1 .sec-cat { color: var(--orange); } .s1 .sec-bar { background: var(--orange); }
+.s2 .sec-cat { color: var(--teal); }   .s2 .sec-bar { background: var(--teal); }
+.s3 .sec-cat { color: var(--blue); }   .s3 .sec-bar { background: var(--blue); }
 
-/* grid slots s1 */
-#s1 .ca{grid-column:1;grid-row:1;height:420px}
-#s1 .cb{grid-column:2;grid-row:1;height:420px}
-#s1 .cc{grid-column:3;grid-row:1/3;height:645px}
-#s1 .cd{grid-column:1;grid-row:2;height:222px}
-#s1 .ce{grid-column:2;grid-row:2;height:222px}
-.wide{grid-column:1/-1;height:270px;margin-top:3px}
-.wide img{object-position:center 40%}
-/* grid slots s2 */
-#s2 .ca{grid-column:1;grid-row:1/3;height:700px}
-#s2 .cb{grid-column:2;grid-row:1;height:347px}
-#s2 .cc{grid-column:3;grid-row:1;height:347px}
-#s2 .cd{grid-column:2;grid-row:2;height:350px}
-#s2 .ce{grid-column:3;grid-row:2;height:350px}
-#s2 .wide{height:250px}
-/* grid slots s3 */
-#s3 .ca{grid-column:1;grid-row:1;height:560px}
-#s3 .cb{grid-column:2;grid-row:1;height:560px}
-#s3 .wide{height:310px}
+.strip { height: 3px; margin: 0 56px 64px; border-radius: 2px; }
+#s1 .strip { background: linear-gradient(to right, var(--orange), transparent); }
+#s2 .strip { background: linear-gradient(to right, var(--teal), transparent); }
+#s3 .strip { background: linear-gradient(to right, var(--blue), transparent); }
+
+/* ── IMAGE GRID ── */
+.img-grid {
+  padding: 0 56px;
+  display: grid;
+  gap: 20px;
+}
+
+/* Section 1: 3-col masonry-style */
+#s1 .img-grid { grid-template-columns: repeat(3, 1fr); }
+
+/* Section 2: 2-col + 3-col mix */
+#s2 .img-grid { grid-template-columns: repeat(3, 1fr); }
+
+/* Section 3: 2-col */
+#s3 .img-grid { grid-template-columns: repeat(2, 1fr); }
+
+/* ── IMAGE ITEM ── */
+.img-item {
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #111;
+}
+.img-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform .5s cubic-bezier(.23,1,.32,1);
+}
+.img-item:hover img { transform: scale(1.02); }
+
+/* label under image */
+.img-label {
+  padding: 14px 0 4px;
+}
+.img-label-tag {
+  font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
+  opacity: .6; margin-bottom: 4px;
+}
+.img-label-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 14px; font-weight: 600; line-height: 1.5;
+}
+.img-label-desc {
+  font-size: 11px; color: rgba(245,240,232,.5);
+  margin-top: 5px; line-height: 1.7;
+}
+
+#s1 .img-label-tag { color: var(--orange); }
+#s2 .img-label-tag { color: var(--teal); }
+#s3 .img-label-tag { color: var(--blue); }
+
+/* span full width */
+.span2 { grid-column: span 2; }
+.span3 { grid-column: 1 / -1; }
+
+/* accent bar on hover */
+.img-item::before {
+  content: ''; position: absolute; top: 0; left: 0;
+  width: 3px; height: 0; z-index: 2;
+  transition: height .4s cubic-bezier(.23,1,.32,1);
+}
+#s1 .img-item::before { background: var(--orange); }
+#s2 .img-item::before { background: var(--teal); }
+#s3 .img-item::before { background: var(--blue); }
+.img-item:hover::before { height: 100%; }
 
 /* SEPARATOR */
-.sep{height:1px;margin:0 56px;background:linear-gradient(to right,transparent,rgba(245,240,232,.07),transparent)}
+.sep {
+  height: 1px; margin: 0 56px;
+  background: linear-gradient(to right, transparent, rgba(245,240,232,.07), transparent);
+}
 
 /* FOOTER */
-footer{background:#0D0B0A;padding:72px 56px 52px;border-top:1px solid rgba(245,240,232,.05);display:grid;grid-template-columns:1fr 1fr 1fr;gap:40px}
-.ft-brand{font-family:'Playfair Display',serif;font-size:26px;font-style:italic;color:var(--gold);margin-bottom:14px}
-.ft-desc{font-size:12px;line-height:1.85;color:var(--gray)}
-.ft-lbl{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--gray);margin-bottom:18px}
-.ft-list{list-style:none;display:flex;flex-direction:column;gap:10px}
-.ft-list li{font-size:12px;color:rgba(245,240,232,.45);display:flex;align-items:center;gap:10px;transition:color .2s}
-.ft-list li::before{content:'';width:18px;height:1px;background:currentColor;opacity:.35;flex-shrink:0}
-.ft-list li:hover{color:var(--cream)}
-.ft-bot{grid-column:1/-1;padding-top:36px;border-top:1px solid rgba(245,240,232,.05);display:flex;justify-content:space-between;align-items:center}
-.ft-bot span{font-size:10px;color:rgba(245,240,232,.22);letter-spacing:2px}
+footer {
+  background: #0D0B0A; padding: 72px 56px 52px;
+  border-top: 1px solid rgba(245,240,232,.05);
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px;
+}
+.ft-brand { font-family: 'Playfair Display', serif; font-size: 26px; font-style: italic; color: var(--gold); margin-bottom: 14px; }
+.ft-desc { font-size: 12px; line-height: 1.85; color: var(--gray); }
+.ft-lbl { font-size: 9px; letter-spacing: 4px; text-transform: uppercase; color: var(--gray); margin-bottom: 18px; }
+.ft-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.ft-list li { font-size: 12px; color: rgba(245,240,232,.45); display: flex; align-items: center; gap: 10px; }
+.ft-list li::before { content: ''; width: 18px; height: 1px; background: currentColor; opacity: .35; flex-shrink: 0; }
+.ft-bot {
+  grid-column: 1/-1; padding-top: 36px;
+  border-top: 1px solid rgba(245,240,232,.05);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.ft-bot span { font-size: 10px; color: rgba(245,240,232,.22); letter-spacing: 2px; }
 
 /* REVEAL */
-.rev{opacity:0;transform:translateY(36px);transition:opacity .75s cubic-bezier(.23,1,.32,1),transform .75s cubic-bezier(.23,1,.32,1)}
-.rev.on{opacity:1;transform:none}
-.d1{transition-delay:.1s} .d2{transition-delay:.2s}
-
-/* LIGHTBOX */
-#lb{position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .35s cubic-bezier(.23,1,.32,1)}
-#lb.on{opacity:1;pointer-events:all}
-#lb-bg{position:absolute;inset:0;background:rgba(8,7,6,.93);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
-#lb-box{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:18px;max-width:92vw;max-height:92vh;transform:scale(.91);transition:transform .35s cubic-bezier(.23,1,.32,1)}
-#lb.on #lb-box{transform:scale(1)}
-#lb-img{max-width:88vw;max-height:80vh;object-fit:contain;display:block;border-radius:3px;box-shadow:0 28px 72px rgba(0,0,0,.65)}
-#lb-cap{text-align:center}
-#lb-cap strong{display:block;font-family:'Noto Serif TC',serif;font-size:15px;color:var(--cream);margin-bottom:3px}
-#lb-cap span{font-size:11px;color:rgba(245,240,232,.5);letter-spacing:1px}
-#lb-close{position:fixed;top:24px;right:32px;width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:3;transition:background .2s,transform .25s}
-#lb-close:hover{background:rgba(255,255,255,.15);transform:rotate(90deg)}
-#lb-close svg{width:17px;height:17px;stroke:#fff;stroke-width:2;fill:none}
-.lb-arr{position:fixed;top:50%;transform:translateY(-50%);width:50px;height:50px;border-radius:50%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:3;transition:background .2s,transform .3s}
-.lb-arr:hover{background:rgba(255,255,255,.15)}
-#lb-prev{left:20px} #lb-prev:hover{transform:translateY(-50%) translateX(-3px)}
-#lb-next{right:20px} #lb-next:hover{transform:translateY(-50%) translateX(3px)}
-.lb-arr svg{width:20px;height:20px;stroke:#fff;stroke-width:2;fill:none}
-#lb-cnt{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);font-size:10px;letter-spacing:3px;color:rgba(245,240,232,.3);z-index:3}
+.rev { opacity: 0; transform: translateY(32px); transition: opacity .7s cubic-bezier(.23,1,.32,1), transform .7s cubic-bezier(.23,1,.32,1); }
+.rev.on { opacity: 1; transform: none; }
+.d1 { transition-delay: .08s; } .d2 { transition-delay: .16s; } .d3 { transition-delay: .24s; }
 
 /* KEYFRAMES */
-@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
-@keyframes barSlide{0%{left:-100%}50%{left:0}100%{left:100%}}
+@keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+@keyframes barSlide { 0% { left: -100%; } 50% { left: 0; } 100% { left: 100%; } }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  nav { padding: 20px 24px; }
+  .nav-links { gap: 20px; }
+  .stats { padding: 36px 24px; gap: 28px; flex-wrap: wrap; }
+  section { padding: 72px 0; }
+  .sec-head { padding: 0 24px; }
+  .sec-num { font-size: 72px; }
+  .strip { margin: 0 24px 48px; }
+  .img-grid { padding: 0 24px; gap: 14px; }
+  #s1 .img-grid, #s2 .img-grid { grid-template-columns: repeat(2, 1fr); }
+  #s3 .img-grid { grid-template-columns: 1fr; }
+  .span2, .span3 { grid-column: 1 / -1; }
+  footer { padding: 48px 24px 36px; grid-template-columns: 1fr; }
+  .sep { margin: 0 24px; }
+}
+@media (max-width: 540px) {
+  #s1 .img-grid, #s2 .img-grid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
 
-<div id="cur"></div>
-<div id="cur-ring"></div>
-
+<!-- NAV -->
 <nav>
   <div class="nav-logo">Portfolio</div>
   <ul class="nav-links">
@@ -170,6 +257,7 @@ footer{background:#0D0B0A;padding:72px 56px 52px;border-top:1px solid rgba(245,2
   </ul>
 </nav>
 
+<!-- HERO -->
 <div class="hero">
   <div class="hero-bg"></div>
   <div class="hero-content">
@@ -177,11 +265,14 @@ footer{background:#0D0B0A;padding:72px 56px 52px;border-top:1px solid rgba(245,2
     <h1 class="hero-h1">影視行銷<span>作品集</span></h1>
     <p class="hero-sub">Three Productions · Infinite Stories</p>
     <div class="hero-scroll">
-      <div class="scroll-bar"></div><span>向下捲動</span><div class="scroll-bar"></div>
+      <div class="scroll-bar"></div>
+      <span>向下捲動</span>
+      <div class="scroll-bar"></div>
     </div>
   </div>
 </div>
 
+<!-- STATS -->
 <div class="stats rev">
   <div class="stat"><span class="stat-n">3</span><span class="stat-l">作品類別</span></div>
   <div class="vdiv"></div>
@@ -192,7 +283,7 @@ footer{background:#0D0B0A;padding:72px 56px 52px;border-top:1px solid rgba(245,2
   <div class="stat"><span class="stat-n">OOH</span><span class="stat-l">行銷媒介</span></div>
 </div>
 
-<!-- S1 -->
+<!-- ══ SECTION 1 ══ -->
 <section id="s1">
   <div class="sec-head rev">
     <div class="sec-num">01</div>
@@ -203,43 +294,96 @@ footer{background:#0D0B0A;padding:72px 56px 52px;border-top:1px solid rgba(245,2
     </div>
   </div>
   <div class="strip"></div>
-  <div class="grid">
-    <div class="card ca rev" data-img="images/就算一個人也可以好好吃飯SLOGAN01.jpg" data-title="貼文 Slogan 視覺設計 01" data-tag="Slogan Design">
-      <img src="images/就算一個人也可以好好吃飯SLOGAN01.jpg" alt="">
-      <div class="card-ov"></div><div class="zoom"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
-      <div class="card-info"><p class="card-tag">Slogan Design</p><h3 class="card-title">貼文 Slogan 視覺設計 01</h3><p class="card-desc">以鍋具造型為主體，結合暖色系配色與手寫字感，傳遞療癒溫暖的飲食情感。</p></div>
+
+  <div class="img-grid">
+
+    <div class="img-item rev">
+      <img src="images/就算一個人也可以好好吃飯SLOGAN01.jpg" alt="Slogan 01">
+      <div class="img-label">
+        <p class="img-label-tag">Slogan Design</p>
+        <p class="img-label-title">貼文 Slogan 視覺設計 01</p>
+        <p class="img-label-desc">以鍋具造型為主體，結合暖色系配色與手寫字感，傳遞療癒溫暖的飲食情感。</p>
+      </div>
     </div>
-    <div class="card cb rev d1" data-img="images/就算一個人也可以好好吃飯SLOGAN02.jpg" data-title="貼文 Slogan 視覺設計 02" data-tag="Slogan Design">
-      <img src="images/就算一個人也可以好好吃飯SLOGAN02.jpg" alt="">
-      <div class="card-ov"></div><div class="zoom"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
-      <div class="card-info"><p class="card-tag">Slogan Design</p><h3 class="card-title">貼文 Slogan 視覺設計 02</h3><p class="card-desc">以飯碗為主視覺，運用米白與淡藍對比，凸顯孤獨與滿足並存的情緒。</p></div>
+
+    <div class="img-item rev d1">
+      <img src="images/就算一個人也可以好好吃飯SLOGAN02.jpg" alt="Slogan 02">
+      <div class="img-label">
+        <p class="img-label-tag">Slogan Design</p>
+        <p class="img-label-title">貼文 Slogan 視覺設計 02</p>
+        <p class="img-label-desc">以飯碗為主視覺，運用米白與淡藍對比，凸顯孤獨與滿足並存的情緒。</p>
+      </div>
     </div>
-    <div class="card cc rev d2" data-img="images/就算一個人也可以好好吃飯SLOGAN03.jpg" data-title="貼文 Slogan 視覺設計 03" data-tag="Slogan Design">
-      <img src="images/就算一個人也可以好好吃飯SLOGAN03.jpg" alt="">
-      <div class="card-ov"></div><div class="zoom"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
-      <div class="card-info"><p class="card-tag">Slogan Design</p><h3 class="card-title">貼文 Slogan 視覺設計 03</h3><p class="card-desc">便當盒型態的設計框架，搭配叉匙圖示，呈現輕鬆愉快的日常飲食場景。</p></div>
+
+    <div class="img-item rev d2">
+      <img src="images/就算一個人也可以好好吃飯SLOGAN03.jpg" alt="Slogan 03">
+      <div class="img-label">
+        <p class="img-label-tag">Slogan Design</p>
+        <p class="img-label-title">貼文 Slogan 視覺設計 03</p>
+        <p class="img-label-desc">便當盒型態的設計框架，搭配叉匙圖示，呈現輕鬆愉快的日常飲食場景。</p>
+      </div>
     </div>
-    <div class="card cd rev" data-img="images/就算一個人也可以好好吃飯SLOGAN04.jpg" data-title="貼文 Slogan 視覺設計 04" data-tag="Slogan Design">
-      <img src="images/就算一個人也可以好好吃飯SLOGAN04.jpg" alt="">
-      <div class="card-ov"></div><div class="zoom"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
-      <div class="card-info"><p class="card-tag">Slogan Design</p><h3 class="card-title">貼文 Slogan 視覺設計 04</h3><p class="card-desc">蛋糕切片造型搭配心型點綴，傳遞甜點即愛的溫柔情感。</p></div>
+
+    <div class="img-item rev">
+      <img src="images/就算一個人也可以好好吃飯SLOGAN04.jpg" alt="Slogan 04">
+      <div class="img-label">
+        <p class="img-label-tag">Slogan Design</p>
+        <p class="img-label-title">貼文 Slogan 視覺設計 04</p>
+        <p class="img-label-desc">蛋糕切片造型搭配心型點綴，傳遞甜點即愛的溫柔情感。</p>
+      </div>
     </div>
-    <div class="card ce rev d1" data-img="images/就算一個人也可以好好吃飯SLOGAN05.jpg" data-title="貼文 Slogan 視覺設計 05" data-tag="Slogan Design">
-      <img src="images/就算一個人也可以好好吃飯SLOGAN05.jpg" alt="">
-      <div class="card-ov"></div><div class="zoom"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
-      <div class="card-info"><p class="card-tag">Slogan Design</p><h3 class="card-title">貼文 Slogan 視覺設計 05</h3><p class="card-desc">吐司造型貼紙設計，以溫馨的文字訴說故事情感。</p></div>
+
+    <div class="img-item rev d1">
+      <img src="images/就算一個人也可以好好吃飯SLOGAN05.jpg" alt="Slogan 05">
+      <div class="img-label">
+        <p class="img-label-tag">Slogan Design</p>
+        <p class="img-label-title">貼文 Slogan 視覺設計 05</p>
+        <p class="img-label-desc">吐司造型貼紙設計，以溫馨的文字訴說故事情感。</p>
+      </div>
     </div>
-    <div class="card wide rev" data-img="images/就算一個人也可以好好吃飯播出圖文50.jpg" data-title="播出宣傳圖文 · 追劇日曆" data-tag="Social Media · Broadcast">
-      <img src="images/就算一個人也可以好好吃飯播出圖文50.jpg" alt="">
-      <div class="card-ov"></div><div class="zoom"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
-      <div class="card-info"><p class="card-tag">Social Media · Broadcast</p><h3 class="card-title">播出宣傳圖文設計 · 追劇日曆</h3><p class="card-desc">包含限動框、追劇日曆、播出圖文等系列社群素材，統一品牌視覺語言，有效累積觀眾期待。</p></div>
+
+    <div class="img-item rev d2">
+      <img src="images/就算一個人也可以好好吃飯公視LOGO.jpg" alt="公視 Logo">
+      <div class="img-label">
+        <p class="img-label-tag">Logo Design</p>
+        <p class="img-label-title">公視+ 貼圖 LOGO 設計</p>
+        <p class="img-label-desc">雲朵造型外框結合公視像素十字標誌，呼應串流平台數位感。</p>
+      </div>
     </div>
+
+    <div class="img-item span3 rev">
+      <img src="images/就算一個人也可以好好吃飯播出圖文50.jpg" alt="播出圖文">
+      <div class="img-label">
+        <p class="img-label-tag">Social Media · Broadcast</p>
+        <p class="img-label-title">播出宣傳圖文設計</p>
+        <p class="img-label-desc">系列社群素材，統一品牌視覺語言，有效累積觀眾期待。</p>
+      </div>
+    </div>
+
+    <div class="img-item span2 rev">
+      <img src="images/就算一個人也可以好好吃飯追劇日曆.jpg" alt="追劇日曆">
+      <div class="img-label">
+        <p class="img-label-tag">Social Media · Calendar</p>
+        <p class="img-label-title">追劇日曆設計</p>
+        <p class="img-label-desc">以食物圖示為每日標記，引導觀眾掌握每週播出節奏。</p>
+      </div>
+    </div>
+
+    <div class="img-item rev d1">
+      <img src="images/就算一個人也可以好好吃飯吃飯限動框示意1.jpg" alt="限動框">
+      <div class="img-label">
+        <p class="img-label-tag">Social Media · Story Frame</p>
+        <p class="img-label-title">限動框示意設計</p>
+        <p class="img-label-desc">供觀眾自行套用的 Instagram 限時動態框，強化社群擴散效果。</p>
+      </div>
+    </div>
+
   </div>
 </section>
 
 <div class="sep"></div>
 
-<!-- S2 -->
+<!-- ══ SECTION 2 ══ -->
 <section id="s2" class="sec2">
   <div class="sec-head rev">
     <div class="sec-num">02</div>
@@ -250,43 +394,129 @@ footer{background:#0D0B0A;padding:72px 56px 52px;border-top:1px solid rgba(245,2
     </div>
   </div>
   <div class="strip"></div>
-  <div class="grid">
-    <div class="card ca rev" data-img="images/整形過後海報主視覺排版設計.jpg" data-title="主視覺海報設計" data-tag="Key Visual · Poster">
-      <img src="images/整形過後海報主視覺排版設計.jpg" alt="" style="object-position:center top">
-      <div class="card-ov"></div><div class="zoom"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
-      <div class="card-info"><p class="card-tag">Key Visual · Poster</p><h3 class="card-title">主視覺海報設計</h3><p class="card-desc">以醫療藍為底，五位主角直視鏡頭，呈現整形外科醫療劇的專業與張力。</p></div>
+
+  <div class="img-grid">
+
+    <div class="img-item span3 rev">
+      <img src="images/整形過後海報主視覺排版設計.jpg" alt="主視覺海報">
+      <div class="img-label">
+        <p class="img-label-tag">Key Visual · Poster Design</p>
+        <p class="img-label-title">主視覺海報設計</p>
+        <p class="img-label-desc">以醫療藍為底，五位主角直視鏡頭，呈現整形外科醫療劇的專業與張力。</p>
+      </div>
     </div>
-    <div class="card cb rev d1" data-img="images/整形過後角色介紹楊雅頌_張榕容飾演.jpg" data-title="角色介紹：張榕容 飾 楊雅頌" data-tag="Character Profile">
-      <img src="images/整形過後角色介紹楊雅頌_張榕容飾演.jpg" alt="">
-      <div class="card-ov"></div><div class="zoom"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
-      <div class="card-info"><p class="card-tag">Character Profile</p><h3 class="card-title">張榕容 飾 楊雅頌</h3><p class="card-desc">霸總女外科醫師形象，以深色系為基調強調角色性格。</p></div>
+
+    <div class="img-item rev">
+      <img src="images/整形過後角色介紹江浩宇_温昇豪飾演.jpg" alt="温昇豪">
+      <div class="img-label">
+        <p class="img-label-tag">Character Profile</p>
+        <p class="img-label-title">温昇豪 飾 江浩宇</p>
+        <p class="img-label-desc">整外神之手，溫暖橘色調呼應角色溫文儒雅的外科醫師氣質。</p>
+      </div>
     </div>
-    <div class="card cc rev d2" data-img="images/整形過後角色介紹江浩宇_温昇豪飾演.jpg" data-title="角色介紹：温昇豪 飾 江浩宇" data-tag="Character Profile">
-      <img src="images/整形過後角色介紹江浩宇_温昇豪飾演.jpg" alt="">
-      <div class="card-ov"></div><div class="zoom"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
-      <div class="card-info"><p class="card-tag">Character Profile</p><h3 class="card-title">温昇豪 飾 江浩宇</h3><p class="card-desc">整外神之手，溫暖橘色調呼應角色溫文儒雅的外科醫師氣質。</p></div>
+
+    <div class="img-item rev d1">
+      <img src="images/整形過後角色介紹蘇菲_安心亞飾演.jpg" alt="安心亞">
+      <div class="img-label">
+        <p class="img-label-tag">Character Profile</p>
+        <p class="img-label-title">安心亞 飾 蘇菲</p>
+        <p class="img-label-desc">最美後援，粉橘色系烘托出角色的活潑與溫柔。</p>
+      </div>
     </div>
-    <div class="card cd rev" data-img="images/整形過後角色介紹蘇菲_安心亞飾演.jpg" data-title="角色介紹：安心亞 飾 蘇菲" data-tag="Character Profile">
-      <img src="images/整形過後角色介紹蘇菲_安心亞飾演.jpg" alt="">
-      <div class="card-ov"></div><div class="zoom"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
-      <div class="card-info"><p class="card-tag">Character Profile</p><h3 class="card-title">安心亞 飾 蘇菲</h3><p class="card-desc">最美後援，粉橘色系烘托出角色的活潑與溫柔。</p></div>
+
+    <div class="img-item rev d2">
+      <img src="images/整形過後角色介紹楊雅頌_張榕容飾演.jpg" alt="張榕容">
+      <div class="img-label">
+        <p class="img-label-tag">Character Profile</p>
+        <p class="img-label-title">張榕容 飾 楊雅頌</p>
+        <p class="img-label-desc">霸總女外科醫師形象，以深色系為基調強調角色性格。</p>
+      </div>
     </div>
-    <div class="card ce rev d1" data-img="images/整形過後追劇日曆.jpg" data-title="追劇日曆 · 播出時程" data-tag="Social Media · Calendar">
-      <img src="images/整形過後追劇日曆.jpg" alt="">
-      <div class="card-ov"></div><div class="zoom"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
-      <div class="card-info"><p class="card-tag">Social Media · Calendar</p><h3 class="card-title">追劇日曆 · 播出時程</h3><p class="card-desc">12/13起每週六連播2集，清晰呈現播出資訊與平台授權。</p></div>
+
+    <div class="img-item rev">
+      <img src="images/整形過後角色介紹合圖1.jpg" alt="角色合圖1">
+      <div class="img-label">
+        <p class="img-label-tag">Character Profile · Group</p>
+        <p class="img-label-title">角色介紹合圖 1</p>
+        <p class="img-label-desc">主要角色群像，以各自代表色並列，強化角色記憶點。</p>
+      </div>
     </div>
-    <div class="card wide rev" data-img="images/整形過後捷運中山站燈箱.jpg" data-title="捷運中山站 R11 燈箱廣告" data-tag="OOH · MRT Lightbox">
-      <img src="images/整形過後捷運中山站燈箱.jpg" alt="">
-      <div class="card-ov"></div><div class="zoom"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
-      <div class="card-info"><p class="card-tag">OOH · MRT Lightbox</p><h3 class="card-title">捷運中山站 R11 燈箱廣告</h3><p class="card-desc">淡水信義線中山站全站包版，五位主角序列排列，形成強烈視覺衝擊與品牌佔領感。</p></div>
+
+    <div class="img-item rev d1">
+      <img src="images/整形過後角色介紹合圖2.jpg" alt="角色合圖2">
+      <div class="img-label">
+        <p class="img-label-tag">Character Profile · Group</p>
+        <p class="img-label-title">角色介紹合圖 2</p>
+        <p class="img-label-desc">配角群像設計，補充劇集世界觀的完整性。</p>
+      </div>
     </div>
+
+    <div class="img-item rev d2">
+      <img src="images/整形過後追劇日曆.jpg" alt="追劇日曆">
+      <div class="img-label">
+        <p class="img-label-tag">Social Media · Calendar</p>
+        <p class="img-label-title">追劇日曆</p>
+        <p class="img-label-desc">12/13起每週六連播2集，清晰呈現播出資訊與平台授權。</p>
+      </div>
+    </div>
+
+    <div class="img-item span3 rev">
+      <img src="images/整形過後捷運中山站燈箱.jpg" alt="捷運燈箱">
+      <div class="img-label">
+        <p class="img-label-tag">OOH · MRT Station Lightbox</p>
+        <p class="img-label-title">捷運中山站 R11 燈箱廣告設計</p>
+        <p class="img-label-desc">淡水信義線中山站全站包版，五位主角角色個人海報序列排列，形成強烈視覺衝擊與品牌佔領感。</p>
+      </div>
+    </div>
+
+    <div class="img-item rev">
+      <img src="images/整形過後中山站R11淡水線左.jpg" alt="燈箱左">
+      <div class="img-label">
+        <p class="img-label-tag">OOH · MRT Lightbox Detail</p>
+        <p class="img-label-title">中山站 R11 淡水線 · 左區</p>
+      </div>
+    </div>
+
+    <div class="img-item rev d1">
+      <img src="images/整形過後中山站R11淡水線中.jpg" alt="燈箱中">
+      <div class="img-label">
+        <p class="img-label-tag">OOH · MRT Lightbox Detail</p>
+        <p class="img-label-title">中山站 R11 淡水線 · 中區</p>
+      </div>
+    </div>
+
+    <div class="img-item rev d2">
+      <img src="images/整形過後中山站R11淡水線右.jpg" alt="燈箱右">
+      <div class="img-label">
+        <p class="img-label-tag">OOH · MRT Lightbox Detail</p>
+        <p class="img-label-title">中山站 R11 淡水線 · 右區</p>
+      </div>
+    </div>
+
+    <div class="img-item span2 rev">
+      <img src="images/整形過後整形過後口碑圖.jpg" alt="口碑圖">
+      <div class="img-label">
+        <p class="img-label-tag">Social Media · Word of Mouth</p>
+        <p class="img-label-title">口碑推薦圖設計</p>
+        <p class="img-label-desc">整合觀眾好評文字，以品牌色系排版，強化社群擴散信任感。</p>
+      </div>
+    </div>
+
+    <div class="img-item rev d2">
+      <img src="images/整形過後YT封面圖.jpg" alt="YT封面">
+      <div class="img-label">
+        <p class="img-label-tag">Digital · YouTube Cover</p>
+        <p class="img-label-title">YouTube 頻道封面圖</p>
+        <p class="img-label-desc">呼應主視覺設計語言，延伸至影音平台的視覺一致性。</p>
+      </div>
+    </div>
+
   </div>
 </section>
 
 <div class="sep"></div>
 
-<!-- S3 -->
+<!-- ══ SECTION 3 ══ -->
 <section id="s3" class="sec3">
   <div class="sec-head rev">
     <div class="sec-num">03</div>
@@ -297,25 +527,40 @@ footer{background:#0D0B0A;padding:72px 56px 52px;border-top:1px solid rgba(245,2
     </div>
   </div>
   <div class="strip"></div>
-  <div class="grid">
-    <div class="card ca rev" data-img="images/不如海邊吹吹風主視覺Ａ款.jpg" data-title="主視覺海報 A 款" data-tag="Key Visual · Poster">
-      <img src="images/不如海邊吹吹風主視覺Ａ款.jpg" alt="">
-      <div class="card-ov"></div><div class="zoom"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
-      <div class="card-info"><p class="card-tag">Key Visual · Poster</p><h3 class="card-title">主視覺海報 A 款</h3><p class="card-desc">以金門海邊開闊天地為背景，三位主角情感張力自然流露，海風感十足。</p></div>
+
+  <div class="img-grid">
+
+    <div class="img-item rev">
+      <img src="images/不如海邊吹吹風主視覺Ａ款.jpg" alt="主視覺A款">
+      <div class="img-label">
+        <p class="img-label-tag">Key Visual · Poster</p>
+        <p class="img-label-title">主視覺海報 A 款</p>
+        <p class="img-label-desc">以金門海邊開闊天地為背景，三位主角情感張力自然流露，完美呼應片名。</p>
+      </div>
     </div>
-    <div class="card cb rev d1" data-img="images/不如海邊吹吹風A3摺頁地圖封面封底內頁A.jpg" data-title="A3 摺頁拍攝地圖" data-tag="Print · Folded Map">
-      <img src="images/不如海邊吹吹風A3摺頁地圖封面封底內頁A.jpg" alt="">
-      <div class="card-ov"></div><div class="zoom"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
-      <div class="card-info"><p class="card-tag">Print · Folded Map</p><h3 class="card-title">A3 摺頁拍攝地圖</h3><p class="card-desc">以金門為主題設計的追劇打卡地圖，整合34個拍攝場景，讓觀眾邊看劇邊探索在地文化。</p></div>
+
+    <div class="img-item rev d1">
+      <img src="images/不如海邊吹吹風A3摺頁地圖封面封底內頁A.jpg" alt="摺頁地圖封面">
+      <div class="img-label">
+        <p class="img-label-tag">Print · Folded Map</p>
+        <p class="img-label-title">A3 摺頁拍攝地圖 · 封面 · 封底 · 內頁 A</p>
+        <p class="img-label-desc">以金門為主題設計的追劇打卡地圖，整合34個拍攝場景，讓觀眾邊看劇邊探索在地文化。</p>
+      </div>
     </div>
-    <div class="card wide rev" data-img="images/不如海邊吹吹風A3摺頁地圖內頁B.jpg" data-title="A3 摺頁地圖 · 內頁詳情" data-tag="Print · Map Interior">
-      <img src="images/不如海邊吹吹風A3摺頁地圖內頁B.jpg" alt="">
-      <div class="card-ov"></div><div class="zoom"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
-      <div class="card-info"><p class="card-tag">Print · Map Interior</p><h3 class="card-title">A3 摺頁地圖 · 內頁詳情</h3><p class="card-desc">詳細標記金門各鄉鎮34處拍攝場景，結合劇照與座標，打造影視旅遊整合行銷體驗。</p></div>
+
+    <div class="img-item span2 rev">
+      <img src="images/不如海邊吹吹風A3摺頁地圖內頁B.jpg" alt="摺頁地圖內頁B">
+      <div class="img-label">
+        <p class="img-label-tag">Print · Map Interior</p>
+        <p class="img-label-title">A3 摺頁拍攝地圖 · 內頁 B</p>
+        <p class="img-label-desc">詳細標記金門各鄉鎮34處拍攝場景，結合劇照與座標，打造影視旅遊整合行銷體驗。</p>
+      </div>
     </div>
+
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
   <div>
     <div class="ft-brand">Portfolio</div>
@@ -345,87 +590,15 @@ footer{background:#0D0B0A;padding:72px 56px 52px;border-top:1px solid rgba(245,2
   </div>
 </footer>
 
-<!-- LIGHTBOX -->
-<div id="lb">
-  <div id="lb-bg"></div>
-  <div id="lb-box">
-    <img id="lb-img" src="" alt="">
-    <div id="lb-cap">
-      <strong id="lb-title"></strong>
-      <span id="lb-tag"></span>
-    </div>
-  </div>
-  <button id="lb-close"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-  <button class="lb-arr" id="lb-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
-  <button class="lb-arr" id="lb-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
-  <div id="lb-cnt"></div>
-</div>
-
 <script>
-// CURSOR
-const cur = document.getElementById('cur');
-const curR = document.getElementById('cur-ring');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{
-  mx=e.clientX; my=e.clientY;
-  cur.style.left=mx+'px'; cur.style.top=my+'px';
-});
-(function tick(){
-  rx+=(mx-rx)*.12; ry+=(my-ry)*.12;
-  curR.style.left=rx+'px'; curR.style.top=ry+'px';
-  requestAnimationFrame(tick);
-})();
-document.querySelectorAll('a,.card').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{cur.style.transform='scale(2.2)';curR.style.width='58px';curR.style.height='58px';});
-  el.addEventListener('mouseleave',()=>{cur.style.transform='';curR.style.width='34px';curR.style.height='34px';});
-});
-
 // SCROLL REVEAL
-document.querySelectorAll('.rev').forEach(el=>{
-  new IntersectionObserver((entries,obs)=>{
-    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');obs.unobserve(e.target);}});
-  },{threshold:0.1}).observe(el);
+document.querySelectorAll('.rev').forEach(el => {
+  new IntersectionObserver((entries, obs) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('on'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.08 }).observe(el);
 });
-
-// LIGHTBOX
-const lb=document.getElementById('lb');
-const lbImg=document.getElementById('lb-img');
-const lbTitle=document.getElementById('lb-title');
-const lbTag=document.getElementById('lb-tag');
-const lbCnt=document.getElementById('lb-cnt');
-const cards=Array.from(document.querySelectorAll('.card[data-img]'));
-let idx=0;
-
-function openLB(i){
-  idx=(i+cards.length)%cards.length;
-  const c=cards[idx];
-  lbImg.src=c.dataset.img;
-  lbTitle.textContent=c.dataset.title||'';
-  lbTag.textContent=c.dataset.tag||'';
-  lbCnt.textContent=(idx+1)+' / '+cards.length;
-  lb.classList.add('on');
-  document.body.style.overflow='hidden';
-}
-function closeLB(){
-  lb.classList.remove('on');
-  document.body.style.overflow='';
-  setTimeout(()=>{lbImg.src='';},360);
-}
-
-cards.forEach((c,i)=>c.addEventListener('click',()=>openLB(i)));
-document.getElementById('lb-close').addEventListener('click',closeLB);
-document.getElementById('lb-bg').addEventListener('click',closeLB);
-document.getElementById('lb-prev').addEventListener('click',e=>{e.stopPropagation();openLB(idx-1);});
-document.getElementById('lb-next').addEventListener('click',e=>{e.stopPropagation();openLB(idx+1);});
-document.addEventListener('keydown',e=>{
-  if(!lb.classList.contains('on'))return;
-  if(e.key==='Escape')closeLB();
-  if(e.key==='ArrowLeft')openLB(idx-1);
-  if(e.key==='ArrowRight')openLB(idx+1);
-});
-let tx=0;
-lb.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{passive:true});
-lb.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>48)dx<0?openLB(idx+1):openLB(idx-1);});
 </script>
 </body>
 </html>

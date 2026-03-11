@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>鯨舟文創行銷作品集</title>
+<title>戲劇行銷作品集</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -224,6 +224,81 @@ footer {
 @keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
 @keyframes barSlide { 0% { left: -100%; } 50% { left: 0; } 100% { left: 100%; } }
 
+
+/* ── LIGHTBOX ── */
+.img-item { cursor: zoom-in; }
+.img-zoom-hint {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(0,0,0,0); transition: background .3s; z-index: 3;
+}
+.img-item:hover .img-zoom-hint { background: rgba(0,0,0,.2); }
+.img-zoom-hint svg {
+  width: 44px; height: 44px; stroke: #fff; stroke-width: 1.5; fill: none;
+  opacity: 0; transform: scale(.75);
+  transition: opacity .3s, transform .3s;
+  filter: drop-shadow(0 2px 10px rgba(0,0,0,.6));
+}
+.img-item:hover .img-zoom-hint svg { opacity: 1; transform: scale(1); }
+#lb {
+  position: fixed; inset: 0; z-index: 10000;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none; transition: opacity .3s ease;
+}
+#lb.on { opacity: 1; pointer-events: all; }
+#lb-bg {
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,.92);
+  backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+}
+#lb-wrap {
+  position: relative; z-index: 2;
+  display: flex; flex-direction: column; align-items: center; gap: 20px;
+  max-width: 94vw; max-height: 94vh;
+  transform: scale(.93); transition: transform .3s cubic-bezier(.23,1,.32,1);
+}
+#lb.on #lb-wrap { transform: scale(1); }
+#lb-img {
+  max-width: 90vw; max-height: 82vh;
+  object-fit: contain; display: block;
+  border-radius: 4px; box-shadow: 0 24px 80px rgba(0,0,0,.7);
+  user-select: none;
+}
+#lb-cap { text-align: center; }
+#lb-cap strong {
+  display: block; font-family: 'Noto Serif TC', serif;
+  font-size: 15px; color: #F5F0E8; margin-bottom: 4px;
+}
+#lb-cap span { font-size: 11px; color: rgba(245,240,232,.45); letter-spacing: 1px; }
+#lb-close {
+  position: fixed; top: 20px; right: 28px;
+  width: 48px; height: 48px; border-radius: 50%;
+  background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15);
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  z-index: 3; transition: background .2s, transform .25s;
+}
+#lb-close:hover { background: rgba(255,255,255,.2); transform: rotate(90deg); }
+#lb-close svg { width: 18px; height: 18px; stroke: #fff; stroke-width: 2; fill: none; }
+.lb-arr {
+  position: fixed; top: 50%; transform: translateY(-50%);
+  width: 52px; height: 52px; border-radius: 50%;
+  background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15);
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  z-index: 3; transition: background .2s, transform .3s;
+}
+.lb-arr:hover { background: rgba(255,255,255,.2); }
+#lb-prev { left: 20px; }
+#lb-prev:hover { transform: translateY(-50%) translateX(-3px); }
+#lb-next { right: 20px; }
+#lb-next:hover { transform: translateY(-50%) translateX(3px); }
+.lb-arr svg { width: 22px; height: 22px; stroke: #fff; stroke-width: 2; fill: none; }
+#lb-cnt {
+  position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+  font-size: 10px; letter-spacing: 3px; color: rgba(245,240,232,.35); z-index: 3;
+  background: rgba(0,0,0,.45); padding: 6px 16px; border-radius: 20px;
+  backdrop-filter: blur(6px);
+}
+
 /* RESPONSIVE */
 @media (max-width: 900px) {
   nav { padding: 20px 24px; }
@@ -251,7 +326,7 @@ footer {
 <nav>
   <div class="nav-logo">Portfolio</div>
   <ul class="nav-links">
-    <li><a href="#s1">好好吃飯</a></li>
+    <li><a href="#s1">就算一個人</a></li>
     <li><a href="#s2">整形過後</a></li>
     <li><a href="#s3">不如海邊</a></li>
   </ul>
@@ -262,7 +337,7 @@ footer {
   <div class="hero-bg"></div>
   <div class="hero-content">
     <p class="hero-eye">Drama Marketing Design Portfolio</p>
-    <h1 class="hero-h1">鯨舟文創<span>行銷素材作品集</span></h1>
+    <h1 class="hero-h1">影視行銷<span>作品集</span></h1>
     <p class="hero-sub">Three Productions · Infinite Stories</p>
     <div class="hero-scroll">
       <div class="scroll-bar"></div>
@@ -289,7 +364,7 @@ footer {
     <div class="sec-num">01</div>
     <div class="sec-info s1">
       <p class="sec-cat">公共電視 · 公視+</p>
-      <h2 class="sec-title">就算一個人<br>也可以好好吃飯</h2>
+      <h2 class="sec-title">就算一個人<br>也可以好好吃飯 2</h2>
       <div class="sec-bar"></div>
     </div>
   </div>
@@ -299,6 +374,7 @@ footer {
 
     <div class="img-item rev">
       <img src="images/就算一個人也可以好好吃飯SLOGAN01.jpg" alt="Slogan 01">
+      <div class="img-zoom-hint"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
       <div class="img-label">
         <p class="img-label-tag">Slogan Design</p>
         <p class="img-label-title">貼文 Slogan 視覺設計 01</p>
@@ -308,6 +384,7 @@ footer {
 
     <div class="img-item rev d1">
       <img src="images/就算一個人也可以好好吃飯SLOGAN02.jpg" alt="Slogan 02">
+      <div class="img-zoom-hint"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
       <div class="img-label">
         <p class="img-label-tag">Slogan Design</p>
         <p class="img-label-title">貼文 Slogan 視覺設計 02</p>
@@ -317,6 +394,7 @@ footer {
 
     <div class="img-item rev d2">
       <img src="images/就算一個人也可以好好吃飯SLOGAN03.jpg" alt="Slogan 03">
+      <div class="img-zoom-hint"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
       <div class="img-label">
         <p class="img-label-tag">Slogan Design</p>
         <p class="img-label-title">貼文 Slogan 視覺設計 03</p>
@@ -326,6 +404,7 @@ footer {
 
     <div class="img-item rev">
       <img src="images/就算一個人也可以好好吃飯SLOGAN04.jpg" alt="Slogan 04">
+      <div class="img-zoom-hint"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
       <div class="img-label">
         <p class="img-label-tag">Slogan Design</p>
         <p class="img-label-title">貼文 Slogan 視覺設計 04</p>
@@ -335,6 +414,7 @@ footer {
 
     <div class="img-item rev d1">
       <img src="images/就算一個人也可以好好吃飯SLOGAN05.jpg" alt="Slogan 05">
+      <div class="img-zoom-hint"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
       <div class="img-label">
         <p class="img-label-tag">Slogan Design</p>
         <p class="img-label-title">貼文 Slogan 視覺設計 05</p>
@@ -344,6 +424,7 @@ footer {
 
     <div class="img-item rev d2">
       <img src="images/就算一個人也可以好好吃飯公視LOGO.jpg" alt="公視 Logo">
+      <div class="img-zoom-hint"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
       <div class="img-label">
         <p class="img-label-tag">Logo Design</p>
         <p class="img-label-title">公視+ 貼圖 LOGO 設計</p>
@@ -353,6 +434,7 @@ footer {
 
     <div class="img-item span3 rev">
       <img src="images/就算一個人也可以好好吃飯播出圖文50.jpg" alt="播出圖文">
+      <div class="img-zoom-hint"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
       <div class="img-label">
         <p class="img-label-tag">Social Media · Broadcast</p>
         <p class="img-label-title">播出宣傳圖文設計</p>
@@ -362,6 +444,7 @@ footer {
 
     <div class="img-item span2 rev">
       <img src="images/就算一個人也可以好好吃飯追劇日曆.jpg" alt="追劇日曆">
+      <div class="img-zoom-hint"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
       <div class="img-label">
         <p class="img-label-tag">Social Media · Calendar</p>
         <p class="img-label-title">追劇日曆設計</p>
@@ -371,6 +454,7 @@ footer {
 
     <div class="img-item rev d1">
       <img src="images/就算一個人也可以好好吃飯吃飯限動框示意1.jpg" alt="限動框">
+      <div class="img-zoom-hint"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
       <div class="img-label">
         <p class="img-label-tag">Social Media · Story Frame</p>
         <p class="img-label-title">限動框示意設計</p>
@@ -399,6 +483,7 @@ footer {
 
     <div class="img-item span3 rev">
       <img src="images/整形過後海報主視覺排版設計.jpg" alt="主視覺海報">
+      <div class="img-zoom-hint"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
       <div class="img-label">
         <p class="img-label-tag">Key Visual · Poster Design</p>
         <p class="img-label-title">主視覺海報設計</p>
@@ -408,6 +493,7 @@ footer {
 
     <div class="img-item rev">
       <img src="images/整形過後角色介紹江浩宇_温昇豪飾演.jpg" alt="温昇豪">
+      <div class="img-zoom-hint"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
       <div class="img-label">
         <p class="img-label-tag">Character Profile</p>
         <p class="img-label-title">温昇豪 飾 江浩宇</p>
@@ -417,6 +503,7 @@ footer {
 
     <div class="img-item rev d1">
       <img src="images/整形過後角色介紹蘇菲_安心亞飾演.jpg" alt="安心亞">
+      <div class="img-zoom-hint"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
       <div class="img-label">
         <p class="img-label-tag">Character Profile</p>
         <p class="img-label-title">安心亞 飾 蘇菲</p>
@@ -426,6 +513,7 @@ footer {
 
     <div class="img-item rev d2">
       <img src="images/整形過後角色介紹楊雅頌_張榕容飾演.jpg" alt="張榕容">
+      <div class="img-zoom-hint"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
       <div class="img-label">
         <p class="img-label-tag">Character Profile</p>
         <p class="img-label-title">張榕容 飾 楊雅頌</p>
@@ -435,6 +523,7 @@ footer {
 
     <div class="img-item rev">
       <img src="images/整形過後角色介紹合圖1.jpg" alt="角色合圖1">
+      <div class="img-zoom-hint"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
       <div class="img-label">
         <p class="img-label-tag">Character Profile · Group</p>
         <p class="img-label-title">角色介紹合圖 1</p>
@@ -444,6 +533,7 @@ footer {
 
     <div class="img-item rev d1">
       <img src="images/整形過後角色介紹合圖2.jpg" alt="角色合圖2">
+      <div class="img-zoom-hint"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
       <div class="img-label">
         <p class="img-label-tag">Character Profile · Group</p>
         <p class="img-label-title">角色介紹合圖 2</p>
@@ -453,6 +543,7 @@ footer {
 
     <div class="img-item rev d2">
       <img src="images/整形過後追劇日曆.jpg" alt="追劇日曆">
+      <div class="img-zoom-hint"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
       <div class="img-label">
         <p class="img-label-tag">Social Media · Calendar</p>
         <p class="img-label-title">追劇日曆</p>
@@ -462,6 +553,7 @@ footer {
 
     <div class="img-item span3 rev">
       <img src="images/整形過後捷運中山站燈箱.jpg" alt="捷運燈箱">
+      <div class="img-zoom-hint"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
       <div class="img-label">
         <p class="img-label-tag">OOH · MRT Station Lightbox</p>
         <p class="img-label-title">捷運中山站 R11 燈箱廣告設計</p>
@@ -471,6 +563,7 @@ footer {
 
     <div class="img-item rev">
       <img src="images/整形過後中山站R11淡水線左.jpg" alt="燈箱左">
+      <div class="img-zoom-hint"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
       <div class="img-label">
         <p class="img-label-tag">OOH · MRT Lightbox Detail</p>
         <p class="img-label-title">中山站 R11 淡水線 · 左區</p>
@@ -479,6 +572,7 @@ footer {
 
     <div class="img-item rev d1">
       <img src="images/整形過後中山站R11淡水線中.jpg" alt="燈箱中">
+      <div class="img-zoom-hint"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
       <div class="img-label">
         <p class="img-label-tag">OOH · MRT Lightbox Detail</p>
         <p class="img-label-title">中山站 R11 淡水線 · 中區</p>
@@ -487,6 +581,7 @@ footer {
 
     <div class="img-item rev d2">
       <img src="images/整形過後中山站R11淡水線右.jpg" alt="燈箱右">
+      <div class="img-zoom-hint"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
       <div class="img-label">
         <p class="img-label-tag">OOH · MRT Lightbox Detail</p>
         <p class="img-label-title">中山站 R11 淡水線 · 右區</p>
@@ -495,6 +590,7 @@ footer {
 
     <div class="img-item span2 rev">
       <img src="images/整形過後整形過後口碑圖.jpg" alt="口碑圖">
+      <div class="img-zoom-hint"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
       <div class="img-label">
         <p class="img-label-tag">Social Media · Word of Mouth</p>
         <p class="img-label-title">口碑推薦圖設計</p>
@@ -504,6 +600,7 @@ footer {
 
     <div class="img-item rev d2">
       <img src="images/整形過後YT封面圖.jpg" alt="YT封面">
+      <div class="img-zoom-hint"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
       <div class="img-label">
         <p class="img-label-tag">Digital · YouTube Cover</p>
         <p class="img-label-title">YouTube 頻道封面圖</p>
@@ -532,6 +629,7 @@ footer {
 
     <div class="img-item rev">
       <img src="images/不如海邊吹吹風主視覺Ａ款.jpg" alt="主視覺A款">
+      <div class="img-zoom-hint"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
       <div class="img-label">
         <p class="img-label-tag">Key Visual · Poster</p>
         <p class="img-label-title">主視覺海報 A 款</p>
@@ -541,6 +639,7 @@ footer {
 
     <div class="img-item rev d1">
       <img src="images/不如海邊吹吹風A3摺頁地圖封面封底內頁A.jpg" alt="摺頁地圖封面">
+      <div class="img-zoom-hint"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
       <div class="img-label">
         <p class="img-label-tag">Print · Folded Map</p>
         <p class="img-label-title">A3 摺頁拍攝地圖 · 封面 · 封底 · 內頁 A</p>
@@ -550,6 +649,7 @@ footer {
 
     <div class="img-item span2 rev">
       <img src="images/不如海邊吹吹風A3摺頁地圖內頁B.jpg" alt="摺頁地圖內頁B">
+      <div class="img-zoom-hint"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
       <div class="img-label">
         <p class="img-label-tag">Print · Map Interior</p>
         <p class="img-label-title">A3 摺頁拍攝地圖 · 內頁 B</p>
@@ -569,7 +669,7 @@ footer {
   <div>
     <p class="ft-lbl">作品類別</p>
     <ul class="ft-list">
-      <li>就算一個人也可以好好吃飯</li>
+      <li>就算一個人也可以好好吃飯 2</li>
       <li>整形過後</li>
       <li>不如海邊吹吹風</li>
     </ul>
@@ -579,13 +679,33 @@ footer {
     <ul class="ft-list">
       <li>主視覺 Key Visual</li>
       <li>社群媒體 Social Media</li>
+      <li>戶外廣告 OOH</li>
       <li>印刷品 Print</li>
+      <li>角色介紹 Character Profile</li>
     </ul>
   </div>
   <div class="ft-bot">
-    <span>鯨舟文創行銷</span>
+    <span>Drama Marketing Design Portfolio</span>
+    <span>台灣影視 · 公共電視</span>
   </div>
 </footer>
+
+
+<!-- LIGHTBOX -->
+<div id="lb">
+  <div id="lb-bg"></div>
+  <div id="lb-wrap">
+    <img id="lb-img" src="" alt="">
+    <div id="lb-cap">
+      <strong id="lb-title"></strong>
+      <span id="lb-tag"></span>
+    </div>
+  </div>
+  <button id="lb-close"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  <button class="lb-arr" id="lb-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+  <button class="lb-arr" id="lb-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+  <div id="lb-cnt"></div>
+</div>
 
 <script>
 // SCROLL REVEAL
@@ -595,6 +715,64 @@ document.querySelectorAll('.rev').forEach(el => {
       if (e.isIntersecting) { e.target.classList.add('on'); obs.unobserve(e.target); }
     });
   }, { threshold: 0.08 }).observe(el);
+});
+
+// LIGHTBOX
+const lb    = document.getElementById('lb');
+const lbImg = document.getElementById('lb-img');
+const lbTtl = document.getElementById('lb-title');
+const lbTag = document.getElementById('lb-tag');
+const lbCnt = document.getElementById('lb-cnt');
+
+// Collect all img-items with an img inside
+const items = Array.from(document.querySelectorAll('.img-item'));
+let idx = 0;
+
+function openLB(i) {
+  idx = (i + items.length) % items.length;
+  const el   = items[idx];
+  const img  = el.querySelector('img');
+  const ttl  = el.querySelector('.img-label-title');
+  const tag  = el.querySelector('.img-label-tag');
+  lbImg.src  = img ? img.src : '';
+  lbTtl.textContent = ttl ? ttl.textContent : '';
+  lbTag.textContent = tag ? tag.textContent : '';
+  lbCnt.textContent = (idx + 1) + ' / ' + items.length;
+  lb.classList.add('on');
+  document.body.style.overflow = 'hidden';
+}
+function closeLB() {
+  lb.classList.remove('on');
+  document.body.style.overflow = '';
+  setTimeout(() => { lbImg.src = ''; }, 320);
+}
+
+// Click on image area (not label) to open
+items.forEach((item, i) => {
+  const imgEl = item.querySelector('img');
+  if (imgEl) imgEl.addEventListener('click', () => openLB(i));
+  const hint = item.querySelector('.img-zoom-hint');
+  if (hint) hint.addEventListener('click', () => openLB(i));
+});
+
+document.getElementById('lb-close').addEventListener('click', closeLB);
+document.getElementById('lb-bg').addEventListener('click', closeLB);
+document.getElementById('lb-prev').addEventListener('click', e => { e.stopPropagation(); openLB(idx - 1); });
+document.getElementById('lb-next').addEventListener('click', e => { e.stopPropagation(); openLB(idx + 1); });
+
+document.addEventListener('keydown', e => {
+  if (!lb.classList.contains('on')) return;
+  if (e.key === 'Escape')      closeLB();
+  if (e.key === 'ArrowLeft')   openLB(idx - 1);
+  if (e.key === 'ArrowRight')  openLB(idx + 1);
+});
+
+// Touch swipe
+let tx = 0;
+lb.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+lb.addEventListener('touchend',   e => {
+  const dx = e.changedTouches[0].clientX - tx;
+  if (Math.abs(dx) > 50) dx < 0 ? openLB(idx + 1) : openLB(idx - 1);
 });
 </script>
 </body>
